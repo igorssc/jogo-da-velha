@@ -1,0 +1,27 @@
+.title {
+  font-family: low_budget;
+  font-size: 48px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 92px !important;
+  }
+}
+
+.details {
+  margin: 30px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details p:last-child {
+  display: flex;
+  gap: 15px;
+}
+
+.current_player {
+  text-align: center;
+}

@@ -1,0 +1,53 @@
+.game_area {
+  width: 490px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  position: relative;
+  margin: auto;
+}
+
+.game_area span {
+  width: 150px;
+  height: 150px;
+  background: #eee;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #242424;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .game_area {
+    width: 245px;
+    gap: 10px;
+  }
+
+  .game_area span {
+    width: 75px;
+    height: 75px;
+  }
+
+  .game_area hr {
+    display: none;
+  }
+}
+
+.game_area span.disabled {
+  cursor: not-allowed;
+}
+
+.game_area span:hover {
+  transform: scale(1.03);
+  animation: all 0.2s;
+}
+
+.game_area hr {
+  position: absolute;
+  width: 450px;
+  border: 15px solid #22222255;
+  border-radius: 100px;
+  z-index: 10;
+}

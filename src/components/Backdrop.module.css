@@ -1,0 +1,65 @@
+.backdrop {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  opacity: 0.9;
+}
+
+.winner {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  justify-content: center;
+}
+
+.winner h1 {
+  font-family: low_budget;
+  font-size: 86px;
+  color: #eab308;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .winner h1 {
+    font-size: 192px !important;
+  }
+}
+
+.winner h2 {
+  font-size: 32px;
+  color: #fed7aa;
+  margin-bottom: 80px;
+}
+
+@media (min-width: 768px) {
+  .winner h2 {
+    font-size: 48px !important;
+  }
+}
+
+.game_over {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  justify-content: center;
+}
+
+.game_over h1 {
+  font-family: low_budget;
+  font-size: 44px;
+  color: #eab308;
+}
+
+@media (min-width: 768px) {
+  .game_over h1 {
+    font-size: 192 !important;
+  }
+}
