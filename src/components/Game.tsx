@@ -11,6 +11,7 @@ export const Game = () => {
     gameData,
     setGameData,
     isAutomatic,
+    symbolsPlayers,
   } = useContext(GameContext);
 
   const handleClick = (indexGame: number) => {
@@ -54,9 +55,10 @@ export const Game = () => {
               isAutomatic && currentPlayer === 2 && "disabled"
             )}
           >
-            {value === 1 && "X"}
-            {isAutomatic && value === 2 && "⭕"}
-            {!isAutomatic && value === 2 && "O"}
+            {value === 1 && symbolsPlayers[1]}
+            {isAutomatic && value === 2 && symbolsPlayers[2] === "O" && "⭕"}
+            {isAutomatic && value === 2 && symbolsPlayers[2] === "X" && "❌"}
+            {!isAutomatic && value === 2 && symbolsPlayers[2]}
           </span>
         ))}
       </div>

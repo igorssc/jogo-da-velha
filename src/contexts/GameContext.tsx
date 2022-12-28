@@ -6,6 +6,15 @@ import {
   useEffect,
   useState,
 } from "react";
+import {
+  checkingPossibilityOfCreatingStrategy,
+  checkPossibilityOfDisruptingOpponent,
+  checkPossibilityOfWinning,
+  checkPossibilityOfWinningInTheFuture,
+  generateRandomPosition,
+  possibilities,
+  winnerCombinations,
+} from "../utils/strategies";
 
 interface GameProviderProps {
   children: ReactNode;
@@ -22,46 +31,106 @@ type GameData = {
   isAutomatic: boolean;
   setIsAutomatic: Dispatch<SetStateAction<boolean>>;
   points: { 1: number; 2: number };
+  startingPlayer: number;
+  symbolsPlayers: { 1: "X" | "O"; 2: "X" | "O" };
+  handleSymbolsPlayers: () => void;
 };
 
 export const GameContext = createContext({} as GameData);
 
 export function GameProvider({ children }: GameProviderProps) {
-  const [isAutomatic, setIsAutomatic] = useState(true);
   const [gameData, setGameData] = useState<number[]>(
     Array.from({ length: 9 }, () => 0)
   );
+
+  const [isAutomatic, setIsAutomatic] = useState(true);
+  const [startingPlayer, setStartingPlayer] = useState(1);
   const [currentPlayer, setCurrentPlayer] = useState(1);
   const [playerWinner, setPlayerWinner] = useState<number | null>(null);
   const [isWeTied, setIsWeTied] = useState(false);
   const [showLine, setShowLine] = useState<string | null>(null);
   const [points, setPoints] = useState({ 1: 0, 2: 0 });
+  const [symbolsPlayers, setSymbolsPlayers] = useState<{
+    1: "X" | "O";
+    2: "X" | "O";
+  }>({ 1: "X", 2: "O" });
+
   let idGame = 1;
 
-  const winnerCombinations = [
-    [0, 1, 2, "line-1"],
-    [3, 4, 5, "line-2"],
-    [6, 7, 8, "line-3"],
-    [0, 3, 6, "column-1"],
-    [1, 4, 7, "column-2"],
-    [2, 5, 8, "column-3"],
-    [0, 4, 8, "diagonal-1"],
-    [6, 4, 2, "diagonal-2"],
-  ];
+  const handleSymbolsPlayers = () => {
+    setSymbolsPlayers((prev) => ({
+      1: prev[1] === "X" ? "O" : "X",
+      2: prev[2] === "X" ? "O" : "X",
+    }));
+  };
+
+  const playAutomatically = () => {
+    const idTemporary = idGame;
+
+    const availablePositions = [] as number[];
+    let positionSelected: number | null = null;
+
+    gameData.forEach((v, i) => {
+      v === 0 && availablePositions.push(i);
+    });
+
+    let possibility = [] as { 0: number; 1: number; 2: number }[];
+
+    winnerCombinations.forEach((combinations, index) => {
+      possibility.push(
+        [
+          gameData[combinations[0] as number],
+          gameData[combinations[1] as number],
+          gameData[combinations[2] as number],
+        ].reduce(
+          (prev, acc) => {
+            let current = { ...prev };
+
+            current[acc as 0 | 1 | 2]++;
+
+            return current;
+          },
+          { 0: 0, 1: 0, 2: 0 }
+        )
+      );
+    });
+
+    positionSelected = checkPossibilityOfWinning(possibility, gameData);
+
+    if (positionSelected !== 0 && !positionSelected) {
+      positionSelected = checkPossibilityOfDisruptingOpponent(
+        possibility,
+        gameData
+      );
+    }
+
+    if (positionSelected !== 0 && !positionSelected) {
+      positionSelected = checkingPossibilityOfCreatingStrategy(gameData);
+    }
+
+    if (positionSelected !== 0 && !positionSelected) {
+      positionSelected = checkPossibilityOfWinningInTheFuture(
+        possibility,
+        gameData
+      );
+    }
+
+    positionSelected =
+      positionSelected ?? generateRandomPosition(availablePositions);
+
+    setTimeout(() => {
+      if (idTemporary === idGame) {
+        setGameData((prev) => {
+          const newGameData = [...prev];
+          newGameData[positionSelected as number] = currentPlayer;
+          return newGameData;
+        });
+      }
+    }, Math.floor(Math.random() * 3000));
+  };
 
   const checkGameOver = () => {
-    const possibilities = Array.from(
-      { length: winnerCombinations.length },
-      (_, index) => {
-        return [
-          gameData[winnerCombinations[index][0] as number],
-          gameData[winnerCombinations[index][1] as number],
-          gameData[winnerCombinations[index][2] as number],
-        ];
-      }
-    );
-
-    const possibilitiesFiltered = possibilities.map((value) =>
+    const possibilitiesFiltered = possibilities(gameData).map((value) =>
       [...new Set(value)].filter((value) => value !== 0 && value)
     );
 
@@ -92,6 +161,7 @@ export function GameProvider({ children }: GameProviderProps) {
           return newValue;
         });
         setShowLine(combination[3] as string);
+        setStartingPlayer(gameData[combination[0] as number]);
         isWinner = true;
       }
     });
@@ -101,7 +171,7 @@ export function GameProvider({ children }: GameProviderProps) {
 
   const restart = () => {
     idGame++;
-    setCurrentPlayer(1);
+    setCurrentPlayer(startingPlayer);
     setGameData(Array.from({ length: 9 }, () => 0));
     setPlayerWinner(null);
     setIsWeTied(false);
@@ -124,88 +194,23 @@ export function GameProvider({ children }: GameProviderProps) {
     }
 
     restartPoints();
+    setCurrentPlayer(1);
+    setStartingPlayer(1);
   }, [isAutomatic]);
 
   useEffect(() => {
-    if (isAutomatic && currentPlayer === 2) {
-      const idTemporary = idGame;
-
-      const availablePositions = [] as number[];
-      let positionSelected: number | null = null;
-
-      gameData.forEach((v, i) => {
-        v === 0 && availablePositions.push(i);
-      });
-
-      let possibility = [] as { 0: number; 1: number; 2: number }[];
-
-      winnerCombinations.forEach((combinations, index) => {
-        possibility.push(
-          [
-            gameData[combinations[0] as number],
-            gameData[combinations[1] as number],
-            gameData[combinations[2] as number],
-          ].reduce(
-            (prev, acc) => {
-              let current = { ...prev };
-
-              current[acc as 0 | 1 | 2]++;
-
-              return current;
-            },
-            { 0: 0, 1: 0, 2: 0 }
-          )
-        );
-      });
-
-      possibility.forEach((v, i) => {
-        if (v[1] === 0 && v[2] === 2) {
-          winnerCombinations[i].forEach((value) => {
-            gameData[value as number] === 0 &&
-              (positionSelected = value as number);
-          });
-        }
-      });
-
-      if (positionSelected !== 0 && !positionSelected) {
-        possibility.forEach((v, i) => {
-          if (v[1] === 2 && v[2] === 0) {
-            winnerCombinations[i].forEach((value) => {
-              gameData[value as number] === 0 &&
-                (positionSelected = value as number);
-            });
-          }
-        });
-      }
-
-      if (positionSelected !== 0 && !positionSelected) {
-        possibility.forEach((v, i) => {
-          if (v[1] === 0 && v[2] === 1) {
-            winnerCombinations[i].forEach((value) => {
-              gameData[value as number] === 0 &&
-                (positionSelected = value as number);
-            });
-          }
-        });
-      }
-
-      positionSelected =
-        positionSelected ??
-        availablePositions[
-          Math.floor(Math.random() * availablePositions.length)
-        ];
-
-      setTimeout(() => {
-        if (idTemporary === idGame) {
-          setGameData((prev) => {
-            const newGameData = [...prev];
-            newGameData[positionSelected as number] = currentPlayer;
-            return newGameData;
-          });
-        }
-      }, Math.floor(Math.random() * 3000));
+    if (isAutomatic && currentPlayer === 2 && gameData.some((v) => v === 1)) {
+      playAutomatically();
     }
   }, [currentPlayer]);
+
+  useEffect(() => {
+    if (isAutomatic && currentPlayer === 2 && startingPlayer === 2) {
+      if (!gameData.some((v) => v === 1 || v === 2)) {
+        playAutomatically();
+      }
+    }
+  }, [gameData]);
 
   return (
     <GameContext.Provider
@@ -220,6 +225,9 @@ export function GameProvider({ children }: GameProviderProps) {
         isAutomatic,
         setIsAutomatic,
         points,
+        startingPlayer,
+        symbolsPlayers,
+        handleSymbolsPlayers,
       }}
     >
       {children}

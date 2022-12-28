@@ -5,7 +5,7 @@ import { Button } from "./Button";
 import { Fireworks } from "./Fireworks";
 
 export const Backdrop = () => {
-  const { playerWinner, restart, isWeTied, isAutomatic } =
+  const { playerWinner, restart, isWeTied, isAutomatic, symbolsPlayers } =
     useContext(GameContext);
 
   return (
@@ -20,7 +20,9 @@ export const Backdrop = () => {
               {isAutomatic && "Você ganhou!"}
               {!isAutomatic &&
                 `
-                Jogador ${playerWinner} - "${playerWinner === 1 ? "X" : "O"}"
+                Jogador ${playerWinner} - "${
+                  symbolsPlayers[playerWinner as 1 | 2]
+                }"
                 `}
             </h2>
             <Button onClick={restart}>Jogar novamente</Button>

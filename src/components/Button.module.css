@@ -4,7 +4,9 @@
   cursor: pointer;
   font-size: 18px;
   display: block;
-  margin: 50px auto;
+  margin: auto;
+  width: 350px;
+  max-width: 100%;
 }
 
 .button:hover {

@@ -44,7 +44,7 @@
 .winner h2 {
   font-size: 32px;
   color: #fed7aa;
-  margin-bottom: 80px;
+  margin-bottom: 130px;
 }
 
 @media (min-width: 768px) {
@@ -62,8 +62,9 @@
 
 .we_tied h1 {
   font-family: low_budget;
-  font-size: 44px;
+  font-size: 86px;
   color: #eab308;
+  margin-bottom: 130px;
 }
 
 @media (min-width: 768px) {
@@ -81,8 +82,9 @@
 
 .game_over h1 {
   font-family: low_budget;
-  font-size: 44px;
+  font-size: 86px;
   color: #eab308;
+  margin-bottom: 130px;
 }
 
 @media (min-width: 768px) {

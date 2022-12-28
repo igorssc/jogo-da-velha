@@ -4,7 +4,7 @@ import styles from "./Header.module.css";
 import { Toggle } from "./Toggle";
 
 export const Header = () => {
-  const { currentPlayer, isAutomatic, setIsAutomatic } =
+  const { currentPlayer, isAutomatic, setIsAutomatic, symbolsPlayers } =
     useContext(GameContext);
 
   return (
@@ -18,7 +18,9 @@ export const Header = () => {
           {isAutomatic && currentPlayer === 2 && "Pensando..."}
           {!isAutomatic &&
             `
-            Jogador ${currentPlayer} - "${currentPlayer === 1 ? "X" : "O"}"
+            Jogador ${currentPlayer} - "${
+              symbolsPlayers[currentPlayer as 1 | 2]
+            }"
             `}
         </p>
         <div className={styles.toggle}>
