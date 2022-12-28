@@ -36,6 +36,7 @@ export function GameProvider({ children }: GameProviderProps) {
   const [isWeTied, setIsWeTied] = useState(false);
   const [showLine, setShowLine] = useState<string | null>(null);
   const [points, setPoints] = useState({ 1: 0, 2: 0 });
+  let idGame = 1;
 
   const winnerCombinations = [
     [0, 1, 2, "line-1"],
@@ -99,6 +100,7 @@ export function GameProvider({ children }: GameProviderProps) {
   };
 
   const restart = () => {
+    idGame++;
     setCurrentPlayer(1);
     setGameData(Array.from({ length: 9 }, () => 0));
     setPlayerWinner(null);
@@ -126,6 +128,8 @@ export function GameProvider({ children }: GameProviderProps) {
 
   useEffect(() => {
     if (isAutomatic && currentPlayer === 2) {
+      const idTemporary = idGame;
+
       const availablePositions = [] as number[];
       let positionSelected: number | null = null;
 
@@ -181,11 +185,13 @@ export function GameProvider({ children }: GameProviderProps) {
         ];
 
       setTimeout(() => {
-        setGameData((prev) => {
-          const newGameData = [...prev];
-          newGameData[positionSelected as number] = currentPlayer;
-          return newGameData;
-        });
+        if (idTemporary === idGame) {
+          setGameData((prev) => {
+            const newGameData = [...prev];
+            newGameData[positionSelected as number] = currentPlayer;
+            return newGameData;
+          });
+        }
       }, Math.floor(Math.random() * 3000));
     }
   }, [currentPlayer]);
