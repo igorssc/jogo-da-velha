@@ -8,6 +8,8 @@
   width: 350px;
   max-width: 100%;
   border: none;
+  background: #606060;
+  color: #fff;
 }
 
 .button:hover {
