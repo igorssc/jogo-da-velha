@@ -167,7 +167,7 @@ export function GameProvider({ children }: GameProviderProps) {
         }
       });
 
-      if (!positionSelected) {
+      if (positionSelected !== 0 && !positionSelected) {
         possibility.forEach((v, i) => {
           if (v[1] === 2 && v[2] === 0) {
             winnerCombinations[i].forEach((value) => {
@@ -178,8 +178,19 @@ export function GameProvider({ children }: GameProviderProps) {
         });
       }
 
+      if (positionSelected !== 0 && !positionSelected) {
+        possibility.forEach((v, i) => {
+          if (v[1] === 0 && v[2] === 1) {
+            winnerCombinations[i].forEach((value) => {
+              gameData[value as number] === 0 &&
+                (positionSelected = value as number);
+            });
+          }
+        });
+      }
+
       positionSelected =
-        positionSelected ||
+        positionSelected ??
         availablePositions[
           Math.floor(Math.random() * availablePositions.length)
         ];
