@@ -55,7 +55,8 @@ export const Game = () => {
             )}
           >
             {value === 1 && "X"}
-            {value === 2 && "O"}
+            {isAutomatic && value === 2 && "⭕"}
+            {!isAutomatic && value === 2 && "O"}
           </span>
         ))}
       </div>
