@@ -18,7 +18,9 @@ export function App() {
       <Game />
       <div className="buttons-app">
         <Button onClick={handleSymbolsPlayers}>Alternar símbolos</Button>
-        <Button onClick={restart}>Reiniciar</Button>
+        <Button onClick={restart} scheme="secondary">
+          Reiniciar
+        </Button>
       </div>
       <Points />
     </>

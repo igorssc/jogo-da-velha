@@ -39,12 +39,14 @@ body {
   flex-direction: column;
   align-items: center;
   justify-items: center;
-  gap: 30px;
-  margin: 50px auto;
+  gap: 15px;
+  margin: 30px auto;
 }
 
 @media (min-width: 768px) {
   .buttons-app {
     flex-direction: row;
+    margin: 40px auto;
+    gap: 30px;
   }
 }

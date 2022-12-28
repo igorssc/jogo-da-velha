@@ -25,7 +25,9 @@ export const Backdrop = () => {
                 }"
                 `}
             </h2>
-            <Button onClick={restart}>Jogar novamente</Button>
+            <Button onClick={restart} scheme="secondary">
+              Jogar novamente
+            </Button>
             <Fireworks />
           </div>
         )}
@@ -33,13 +35,17 @@ export const Backdrop = () => {
           <div className={styles.game_over}>
             <h1>Você perdeu :&#40;</h1>
             <br />
-            <Button onClick={restart}>Jogar novamente</Button>
+            <Button onClick={restart} scheme="secondary">
+              Jogar novamente
+            </Button>
           </div>
         )}
         {isWeTied && (
           <div className={styles.we_tied}>
             <h1>Deu velha! :&#40;</h1>
-            <Button onClick={restart}>Jogar novamente</Button>
+            <Button onClick={restart} scheme="secondary">
+              Jogar novamente
+            </Button>
           </div>
         )}
       </div>
