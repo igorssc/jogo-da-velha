@@ -31,7 +31,7 @@
   }
 
   .game_area hr {
-    display: none;
+    /* display: none; */
   }
 }
 
@@ -46,8 +46,79 @@
 
 .game_area hr {
   position: absolute;
-  width: 450px;
-  border: 15px solid #22222255;
+  width: 215px;
+  border: 10px solid #ea580c77;
   border-radius: 100px;
   z-index: 10;
+}
+
+.none {
+  display: none;
+}
+
+.line_1 {
+  left: 6px;
+  top: 19px;
+}
+.line_2 {
+  left: 6px;
+  top: 105px;
+}
+.line_3 {
+  left: 6px;
+  top: 190px;
+}
+.column_1 {
+  transform: rotate(90deg) translateY(79px) translateX(105px);
+}
+.column_2 {
+  transform: rotate(90deg) translateY(-5px) translateX(105px);
+}
+.column_3 {
+  transform: rotate(90deg) translateY(-90px) translateX(105px);
+}
+.diagonal_1 {
+  transform: rotate(45deg) translateY(100px) translateX(50px);
+  width: 300px !important;
+}
+.diagonal_2 {
+  transform: rotate(-45deg) translateY(48px) translateX(-100px);
+  width: 300px !important;
+}
+
+@media (min-width: 768px) {
+  .game_area hr {
+    width: 450px;
+    border: 15px solid #ea580c77;
+  }
+
+  .line_1 {
+    left: 5px;
+    top: 52px;
+  }
+  .line_2 {
+    left: 5px;
+    top: 222px;
+  }
+  .line_3 {
+    left: 5px;
+    top: 391px;
+  }
+  .column_1 {
+    transform: rotate(90deg) translateY(165px) translateX(220px);
+  }
+  .column_2 {
+    transform: rotate(90deg) translateY(-5px) translateX(220px);
+  }
+  .column_3 {
+    transform: rotate(90deg) translateY(-175px) translateX(220px);
+  }
+  .diagonal_1 {
+    transform: rotate(45deg) translateY(205px) translateX(110px);
+    width: 600px !important;
+  }
+  .diagonal_2 {
+    transform: rotate(-45deg) translateY(105px) translateX(-205px);
+    width: 600px !important;
+  }
 }

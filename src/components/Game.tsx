@@ -33,29 +33,17 @@ export const Game = () => {
     <>
       <div className={styles.game_area}>
         <hr
-          style={{
-            ...(!playerWinner && { display: "none" }),
-            ...(showLine === "line-1" && { left: 5, top: 52 }),
-            ...(showLine === "line-2" && { left: 5, top: 222 }),
-            ...(showLine === "line-3" && { left: 5, top: 391 }),
-            ...(showLine === "column-1" && {
-              transform: "rotate(90deg) translateY(165px) translateX(220px)",
-            }),
-            ...(showLine === "column-2" && {
-              transform: "rotate(90deg) translateY(-5px) translateX(220px)",
-            }),
-            ...(showLine === "column-3" && {
-              transform: "rotate(90deg) translateY(-175px) translateX(220px)",
-            }),
-            ...(showLine === "diagonal-1" && {
-              width: 600,
-              transform: "rotate(45deg) translateY(205px) translateX(110px)",
-            }),
-            ...(showLine === "diagonal-2" && {
-              width: 600,
-              transform: "rotate(-45deg) translateY(105px) translateX(-205px)",
-            }),
-          }}
+          className={clsx(
+            !playerWinner && styles.none,
+            showLine === "line-1" && styles.line_1,
+            showLine === "line-2" && styles.line_2,
+            showLine === "line-3" && styles.line_3,
+            showLine === "column-1" && styles.column_1,
+            showLine === "column-2" && styles.column_2,
+            showLine === "column-3" && styles.column_3,
+            showLine === "diagonal-1" && styles.diagonal_1,
+            showLine === "diagonal-2" && styles.diagonal_2
+          )}
         />
         {gameData.map((value, index) => (
           <span
