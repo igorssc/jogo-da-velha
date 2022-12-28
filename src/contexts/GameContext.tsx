@@ -15,12 +15,13 @@ type GameData = {
   restart: () => void;
   currentPlayer: number;
   playerWinner: number | null;
-  isGameOver: boolean;
+  isWeTied: boolean;
   showLine: string | null;
   gameData: number[];
   setGameData: Dispatch<SetStateAction<number[]>>;
   isAutomatic: boolean;
   setIsAutomatic: Dispatch<SetStateAction<boolean>>;
+  points: { 1: number; 2: number };
 };
 
 export const GameContext = createContext({} as GameData);
@@ -32,8 +33,9 @@ export function GameProvider({ children }: GameProviderProps) {
   );
   const [currentPlayer, setCurrentPlayer] = useState(1);
   const [playerWinner, setPlayerWinner] = useState<number | null>(null);
-  const [isGameOver, setIsGameOver] = useState(false);
+  const [isWeTied, setIsWeTied] = useState(false);
   const [showLine, setShowLine] = useState<string | null>(null);
+  const [points, setPoints] = useState({ 1: 0, 2: 0 });
 
   const winnerCombinations = [
     [0, 1, 2, "line-1"],
@@ -68,7 +70,7 @@ export function GameProvider({ children }: GameProviderProps) {
       (values) => values.length !== 2 && (gameOver = false)
     );
 
-    setIsGameOver(gameOver);
+    setIsWeTied(gameOver);
   };
 
   const checkWinner = () => {
@@ -83,6 +85,11 @@ export function GameProvider({ children }: GameProviderProps) {
           gameData[combination[2] as number]
       ) {
         setPlayerWinner(gameData[combination[0] as number]);
+        setPoints((prev) => {
+          const newValue = { ...prev };
+          newValue[gameData[combination[0] as number] as 1 | 2] += 1;
+          return newValue;
+        });
         setShowLine(combination[3] as string);
         isWinner = true;
       }
@@ -95,7 +102,11 @@ export function GameProvider({ children }: GameProviderProps) {
     setCurrentPlayer(1);
     setGameData(Array.from({ length: 9 }, () => 0));
     setPlayerWinner(null);
-    setIsGameOver(false);
+    setIsWeTied(false);
+  };
+
+  const restartPoints = () => {
+    setPoints({ 1: 0, 2: 0 });
   };
 
   useEffect(() => {
@@ -109,6 +120,8 @@ export function GameProvider({ children }: GameProviderProps) {
     if (gameData.some((v) => v === 1 || v === 2)) {
       restart();
     }
+
+    restartPoints();
   }, [isAutomatic]);
 
   useEffect(() => {
@@ -173,7 +186,7 @@ export function GameProvider({ children }: GameProviderProps) {
           newGameData[positionSelected as number] = currentPlayer;
           return newGameData;
         });
-      }, Math.floor(Math.random() * 4000));
+      }, Math.floor(Math.random() * 3000));
     }
   }, [currentPlayer]);
 
@@ -183,12 +196,13 @@ export function GameProvider({ children }: GameProviderProps) {
         restart,
         currentPlayer,
         playerWinner,
-        isGameOver,
+        isWeTied,
         showLine,
         gameData,
         setGameData,
         isAutomatic,
         setIsAutomatic,
+        points,
       }}
     >
       {children}

@@ -12,9 +12,14 @@ export const Header = () => {
       <h1 className={styles.title}>Jogo da Velha</h1>
       <div className={styles.details}>
         <p className={styles.current_player}>
-          Jogador {currentPlayer} - "{currentPlayer === 1 ? "X" : "O"}"
+          {isAutomatic && currentPlayer === 1 && "Sua vez!"}
+          {isAutomatic && currentPlayer === 2 && "Pensando..."}
+          {!isAutomatic &&
+            `
+            Jogador ${currentPlayer} - "${currentPlayer === 1 ? "X" : "O"}"
+            `}
         </p>
-        <p>
+        <div className={styles.toggle}>
           Automático
           <Toggle
             isChecked={isAutomatic}
@@ -22,7 +27,7 @@ export const Header = () => {
               setIsAutomatic((prev) => !prev);
             }}
           />
-        </p>
+        </div>
       </div>
     </>
   );

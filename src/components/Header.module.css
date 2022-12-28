@@ -17,7 +17,7 @@
   align-items: center;
 }
 
-.details p:last-child {
+.details .toggle {
   display: flex;
   gap: 15px;
 }
