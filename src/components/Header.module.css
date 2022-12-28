@@ -2,7 +2,11 @@
   font-family: low_budget;
   font-size: 48px;
   text-align: center;
-  margin-top: 60px;
+  margin-top: 70px;
+}
+
+.title span {
+  color: #f92f60;
 }
 
 @media (min-width: 768px) {

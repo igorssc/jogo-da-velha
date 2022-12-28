@@ -9,7 +9,9 @@ export const Header = () => {
 
   return (
     <>
-      <h1 className={styles.title}>Jogo da Velha</h1>
+      <h1 className={styles.title}>
+        Jogo <span>da</span> Velha
+      </h1>
       <div className={styles.details}>
         <p className={styles.current_player}>
           {isAutomatic && currentPlayer === 1 && "Sua vez!"}

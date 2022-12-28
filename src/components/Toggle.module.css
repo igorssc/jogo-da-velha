@@ -45,5 +45,5 @@
 }
 .ToggleSwitch .ToggleSwitch__wrapper .Slider.isChecked:before {
   left: calc(100% - 0.1rem - 1.45rem);
-  background: #09f;
+  background: #f92f60;
 }
