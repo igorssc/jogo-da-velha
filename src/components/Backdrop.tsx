@@ -23,7 +23,7 @@ export const Backdrop = () => {
                 Jogador ${playerWinner} - "${playerWinner === 1 ? "X" : "O"}"
                 `}
             </h2>
-            <Button onClick={restart}>Reiniciar</Button>
+            <Button onClick={restart}>Jogar novamente</Button>
             <Fireworks />
           </div>
         )}
@@ -31,13 +31,13 @@ export const Backdrop = () => {
           <div className={styles.game_over}>
             <h1>Você perdeu :&#40;</h1>
             <br />
-            <Button onClick={restart}>Reiniciar</Button>
+            <Button onClick={restart}>Jogar novamente</Button>
           </div>
         )}
         {isWeTied && (
           <div className={styles.we_tied}>
             <h1>Deu velha! :&#40;</h1>
-            <Button onClick={restart}>Reiniciar</Button>
+            <Button onClick={restart}>Jogar novamente</Button>
           </div>
         )}
       </div>
