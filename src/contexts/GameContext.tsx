@@ -101,7 +101,11 @@ export function GameProvider({ children }: GameProviderProps) {
 
     positionSelected = checkPossibilityOfWinning(possibility, gameData);
 
-    if (positionSelected !== 0 && !positionSelected) {
+    if (
+      positionSelected !== 0 &&
+      !positionSelected &&
+      (level === 2 || level === 3)
+    ) {
       positionSelected = checkPossibilityOfDisruptingOpponent(
         possibility,
         gameData
