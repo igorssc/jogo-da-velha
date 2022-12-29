@@ -34,6 +34,8 @@ type GameData = {
   startingPlayer: number;
   symbolsPlayers: { 1: "X" | "O"; 2: "X" | "O" };
   handleSymbolsPlayers: () => void;
+  level: 1 | 2 | 3;
+  setLevel: Dispatch<SetStateAction<1 | 2 | 3>>;
 };
 
 export const GameContext = createContext({} as GameData);
@@ -43,6 +45,7 @@ export function GameProvider({ children }: GameProviderProps) {
     Array.from({ length: 9 }, () => 0)
   );
 
+  const [level, setLevel] = useState<1 | 2 | 3>(1);
   const [isAutomatic, setIsAutomatic] = useState(true);
   const [startingPlayer, setStartingPlayer] = useState(1);
   const [currentPlayer, setCurrentPlayer] = useState(1);
@@ -199,7 +202,7 @@ export function GameProvider({ children }: GameProviderProps) {
     restartPoints();
     setCurrentPlayer(1);
     setStartingPlayer(1);
-  }, [isAutomatic]);
+  }, [isAutomatic, level]);
 
   useEffect(() => {
     if (isAutomatic && currentPlayer === 2 && gameData.some((v) => v === 1)) {
@@ -231,6 +234,8 @@ export function GameProvider({ children }: GameProviderProps) {
         startingPlayer,
         symbolsPlayers,
         handleSymbolsPlayers,
+        level,
+        setLevel,
       }}
     >
       {children}

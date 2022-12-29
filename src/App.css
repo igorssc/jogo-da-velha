@@ -50,3 +50,16 @@ body {
     gap: 30px;
   }
 }
+
+.footer-app {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin: 40px auto;
+}
+
+@media (min-width: 768px) {
+  .footer-app {
+    gap: 30px;
+  }
+}
