@@ -393,6 +393,12 @@ export const checkingPossibilityOfCreatingStrategy = (
     gameData[7] === 0 &&
     (positionSelected = 6);
 
+  // -------------------------------------
+
+  // -  |  -  | -
+  // -  |  x  | -
+  // -  |  -  | -
+
   gameData[4] === 1 &&
     gameData[0] === 0 &&
     gameData[1] === 0 &&
@@ -403,6 +409,76 @@ export const checkingPossibilityOfCreatingStrategy = (
     gameData[7] === 0 &&
     gameData[8] === 0 &&
     (positionSelected = [0, 2, 6, 8][Math.floor(Math.random() * 4)]);
+
+  // -------------------------------------
+
+  // XX |  -  | o
+  // -  |  x  | -
+  // x  |  -  | -
+
+  gameData[4] === 1 &&
+    gameData[0] === 1 &&
+    gameData[8] === 2 &&
+    gameData[1] === 0 &&
+    gameData[2] === 0 &&
+    gameData[6] === 0 &&
+    (positionSelected = 2);
+
+  gameData[4] === 1 &&
+    gameData[0] === 1 &&
+    gameData[8] === 2 &&
+    gameData[3] === 0 &&
+    gameData[6] === 0 &&
+    gameData[2] === 0 &&
+    (positionSelected = 6);
+
+  gameData[4] === 1 &&
+    gameData[2] === 1 &&
+    gameData[6] === 2 &&
+    gameData[0] === 0 &&
+    gameData[1] === 0 &&
+    gameData[8] === 0 &&
+    (positionSelected = 0);
+
+  gameData[4] === 1 &&
+    gameData[2] === 1 &&
+    gameData[6] === 2 &&
+    gameData[0] === 0 &&
+    gameData[5] === 0 &&
+    gameData[8] === 0 &&
+    (positionSelected = 8);
+
+  gameData[4] === 1 &&
+    gameData[8] === 1 &&
+    gameData[0] === 2 &&
+    gameData[6] === 0 &&
+    gameData[7] === 0 &&
+    gameData[2] === 0 &&
+    (positionSelected = 6);
+
+  gameData[4] === 1 &&
+    gameData[8] === 1 &&
+    gameData[0] === 2 &&
+    gameData[2] === 0 &&
+    gameData[5] === 0 &&
+    gameData[6] === 0 &&
+    (positionSelected = 2);
+
+  gameData[4] === 1 &&
+    gameData[6] === 1 &&
+    gameData[2] === 2 &&
+    gameData[0] === 0 &&
+    gameData[3] === 0 &&
+    gameData[8] === 0 &&
+    (positionSelected = 0);
+
+  gameData[4] === 1 &&
+    gameData[6] === 1 &&
+    gameData[2] === 2 &&
+    gameData[0] === 0 &&
+    gameData[7] === 0 &&
+    gameData[8] === 0 &&
+    (positionSelected = 8);
 
   return positionSelected;
 };
