@@ -16,12 +16,12 @@ export const Header = () => {
         <p className={styles.current_player}>
           {isAutomatic && currentPlayer === 1 && "Sua vez!"}
           {isAutomatic && currentPlayer === 2 && "Pensando..."}
-          {!isAutomatic &&
-            `
-            Jogador ${currentPlayer} - "${
-              symbolsPlayers[currentPlayer as 1 | 2]
-            }"
-            `}
+          {!isAutomatic && (
+            <>
+              Jogador {currentPlayer} &nbsp;&nbsp;&nbsp;
+              {symbolsPlayers[currentPlayer as 1 | 2] === "O" ? "⭕" : "❌"}
+            </>
+          )}
         </p>
         <div className={styles.toggle}>
           Automático

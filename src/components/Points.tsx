@@ -11,15 +11,17 @@ export const Points = () => {
         <div className={styles.points}>
           <div>
             <h1>
-              {isAutomatic ? "Você" : `Jogador 1 - "${symbolsPlayers[1]}"`}
+              {isAutomatic ? "Você" : "Jogador 1"}
+              &nbsp;&nbsp;&nbsp;
+              {symbolsPlayers[1] === "O" ? "⭕" : "❌"}
             </h1>
             <h2>{points[1]}</h2>
           </div>
           <div>
             <h1>
-              {isAutomatic
-                ? "Adversário"
-                : `Jogador 2 - "${symbolsPlayers[2]}"`}
+              {isAutomatic ? "Adversário" : "Jogador 2"}
+              &nbsp;&nbsp;&nbsp;
+              {symbolsPlayers[2] === "O" ? "⭕" : "❌"}
             </h1>
             <h2>{points[2]}</h2>
           </div>
