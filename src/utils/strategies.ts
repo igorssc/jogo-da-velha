@@ -393,5 +393,16 @@ export const checkingPossibilityOfCreatingStrategy = (
     gameData[7] === 0 &&
     (positionSelected = 6);
 
+  gameData[4] === 1 &&
+    gameData[0] === 0 &&
+    gameData[1] === 0 &&
+    gameData[2] === 0 &&
+    gameData[3] === 0 &&
+    gameData[5] === 0 &&
+    gameData[6] === 0 &&
+    gameData[7] === 0 &&
+    gameData[8] === 0 &&
+    (positionSelected = [0, 2, 6, 8][Math.floor(Math.random() * 4)]);
+
   return positionSelected;
 };
