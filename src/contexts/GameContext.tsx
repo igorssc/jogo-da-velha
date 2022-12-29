@@ -134,13 +134,16 @@ export function GameProvider({ children }: GameProviderProps) {
       [...new Set(value)].filter((value) => value !== 0 && value)
     );
 
-    let gameOver = true;
+    let isGameOver = true;
 
     possibilitiesFiltered.forEach(
-      (values) => values.length !== 2 && (gameOver = false)
+      (values) => values.length !== 2 && (isGameOver = false)
     );
 
-    setIsWeTied(gameOver);
+    if (isGameOver) {
+      setIsWeTied(isGameOver);
+      setStartingPlayer((prev) => (prev === 1 ? 2 : 1));
+    }
   };
 
   const checkWinner = () => {
