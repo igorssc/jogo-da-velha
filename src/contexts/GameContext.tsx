@@ -124,11 +124,7 @@ export function GameProvider({ children }: GameProviderProps) {
       positionSelected = checkingPossibilityOfCreatingHighStrategy(gameData);
     }
 
-    if (
-      positionSelected !== 0 &&
-      !positionSelected &&
-      (level === 2 || level === 3)
-    ) {
+    if (positionSelected !== 0 && !positionSelected) {
       positionSelected = checkPossibilityOfWinningInTheFuture(
         possibility,
         gameData
