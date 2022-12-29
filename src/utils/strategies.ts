@@ -490,5 +490,55 @@ export const checkingPossibilityOfCreatingHighStrategy = (
 
   // -------------------------------------
 
+  // oo |  -  | -
+  // -  |  xx | -
+  // o  |  -  | -
+
+  gameData[0] === 1 &&
+    gameData[1] === 0 &&
+    gameData[2] === 0 &&
+    gameData[3] === 0 &&
+    gameData[4] === 0 &&
+    gameData[5] === 0 &&
+    gameData[6] === 0 &&
+    gameData[7] === 0 &&
+    gameData[8] === 0 &&
+    (positionSelected = 4);
+
+  gameData[2] === 1 &&
+    gameData[0] === 0 &&
+    gameData[1] === 0 &&
+    gameData[3] === 0 &&
+    gameData[4] === 0 &&
+    gameData[5] === 0 &&
+    gameData[6] === 0 &&
+    gameData[7] === 0 &&
+    gameData[8] === 0 &&
+    (positionSelected = 4);
+
+  gameData[6] === 1 &&
+    gameData[0] === 0 &&
+    gameData[1] === 0 &&
+    gameData[2] === 0 &&
+    gameData[3] === 0 &&
+    gameData[4] === 0 &&
+    gameData[5] === 0 &&
+    gameData[7] === 0 &&
+    gameData[8] === 0 &&
+    (positionSelected = 4);
+
+  gameData[8] === 1 &&
+    gameData[0] === 0 &&
+    gameData[1] === 0 &&
+    gameData[2] === 0 &&
+    gameData[3] === 0 &&
+    gameData[4] === 0 &&
+    gameData[5] === 0 &&
+    gameData[6] === 0 &&
+    gameData[7] === 0 &&
+    (positionSelected = 4);
+
+  // -------------------------------------
+
   return positionSelected;
 };

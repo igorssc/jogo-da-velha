@@ -112,7 +112,11 @@ export function GameProvider({ children }: GameProviderProps) {
       );
     }
 
-    if (positionSelected !== 0 && !positionSelected && level === 3) {
+    if (
+      positionSelected !== 0 &&
+      !positionSelected &&
+      (level === 2 || level === 3)
+    ) {
       positionSelected = checkingPossibilityOfCreatingMediaStrategy(gameData);
     }
 
