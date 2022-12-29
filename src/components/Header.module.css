@@ -12,6 +12,7 @@
 @media (min-width: 768px) {
   .title {
     font-size: 92px !important;
+    margin-top: 70px;
   }
 }
 
