@@ -18,7 +18,7 @@ export const Header = () => {
           {isAutomatic && currentPlayer === 2 && "Pensando..."}
           {!isAutomatic && (
             <>
-              Jogador {currentPlayer} &nbsp;&nbsp;&nbsp;
+              Jogador {currentPlayer} &nbsp;&nbsp;
               {symbolsPlayers[currentPlayer as 1 | 2] === "O" ? "⭕" : "❌"}
             </>
           )}

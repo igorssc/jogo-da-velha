@@ -12,7 +12,7 @@ export const Points = () => {
           <div>
             <h1>
               {isAutomatic ? "Você" : "Jogador 1"}
-              &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;
               {symbolsPlayers[1] === "O" ? "⭕" : "❌"}
             </h1>
             <h2>{points[1]}</h2>
@@ -20,7 +20,7 @@ export const Points = () => {
           <div>
             <h1>
               {isAutomatic ? "Adversário" : "Jogador 2"}
-              &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;
               {symbolsPlayers[2] === "O" ? "⭕" : "❌"}
             </h1>
             <h2>{points[2]}</h2>
