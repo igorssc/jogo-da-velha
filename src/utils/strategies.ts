@@ -84,7 +84,7 @@ export const checkPossibilityOfWinningInTheFuture = (
 export const generateRandomPosition = (availablePositions: number[]) =>
   availablePositions[Math.floor(Math.random() * availablePositions.length)];
 
-export const checkingPossibilityOfCreatingStrategy = (
+export const checkingPossibilityOfCreatingMediaStrategy = (
   gameData: number[]
 ): null | number => {
   let positionSelected: number | null = null;
@@ -395,6 +395,14 @@ export const checkingPossibilityOfCreatingStrategy = (
 
   // -------------------------------------
 
+  return positionSelected;
+};
+
+export const checkingPossibilityOfCreatingHighStrategy = (
+  gameData: number[]
+): null | number => {
+  let positionSelected: number | null = null;
+
   // -  |  -  | -
   // -  |  x  | -
   // -  |  -  | -
@@ -479,6 +487,8 @@ export const checkingPossibilityOfCreatingStrategy = (
     gameData[7] === 0 &&
     gameData[8] === 0 &&
     (positionSelected = 8);
+
+  // -------------------------------------
 
   return positionSelected;
 };

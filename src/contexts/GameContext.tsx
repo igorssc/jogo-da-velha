@@ -7,7 +7,8 @@ import {
   useState,
 } from "react";
 import {
-  checkingPossibilityOfCreatingStrategy,
+  checkingPossibilityOfCreatingHighStrategy,
+  checkingPossibilityOfCreatingMediaStrategy,
   checkPossibilityOfDisruptingOpponent,
   checkPossibilityOfWinning,
   checkPossibilityOfWinningInTheFuture,
@@ -107,11 +108,23 @@ export function GameProvider({ children }: GameProviderProps) {
       );
     }
 
-    if (positionSelected !== 0 && !positionSelected) {
-      positionSelected = checkingPossibilityOfCreatingStrategy(gameData);
+    if (
+      positionSelected !== 0 &&
+      !positionSelected &&
+      (level === 2 || level === 3)
+    ) {
+      positionSelected = checkingPossibilityOfCreatingMediaStrategy(gameData);
     }
 
-    if (positionSelected !== 0 && !positionSelected) {
+    if (positionSelected !== 0 && !positionSelected && level === 3) {
+      positionSelected = checkingPossibilityOfCreatingHighStrategy(gameData);
+    }
+
+    if (
+      positionSelected !== 0 &&
+      !positionSelected &&
+      (level === 2 || level === 3)
+    ) {
       positionSelected = checkPossibilityOfWinningInTheFuture(
         possibility,
         gameData
