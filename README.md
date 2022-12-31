@@ -32,8 +32,6 @@ yarn
 npm init
 ```
 
-- Put your environment variables in a file .env.local at the root of the project
-
 - Start the server
 
 ```bash
