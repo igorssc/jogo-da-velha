@@ -1,4 +1,5 @@
-![Featured](https://user-images.githubusercontent.com/26682297/210120499-8445e854-7e20-4b6c-801f-ca9ea823b3f8.jpg)
+![Featured](https://user-images.githubusercontent.com/26682297/210121033-ff4c3a99-ee49-4ba3-bd39-07556ee6a097.jpg)
+
 
 Project developed in order to improve software development skills. The project is based on the tic-tac-toe game, known worldwide.
 
