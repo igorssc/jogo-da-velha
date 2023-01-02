@@ -21,6 +21,19 @@
     "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^3.0.0",
     "typescript": "^4.9.3",
-    "vite": "^4.0.0"
-  }
+    "vite": "^4.0.0",
+    "vite-plugin-pwa": "^0.14.0"
+  },
+  "description": "![Featured](https://user-images.githubusercontent.com/26682297/210121033-ff4c3a99-ee49-4ba3-bd39-07556ee6a097.jpg)",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igorssc/tic-tac-toe.git"
+  },
+  "author": "Igor Santos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/igorssc/tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/igorssc/tic-tac-toe#readme"
 }
