@@ -15,12 +15,6 @@
   }
 }
 
-@media (max-height: 810px) {
-  .title {
-    margin-top: 40px;
-  }
-}
-
 .details {
   margin: 30px auto;
   display: flex;
