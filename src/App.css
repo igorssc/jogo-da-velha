@@ -26,12 +26,7 @@ body {
   min-width: 320px;
   justify-content: center;
   place-items: center;
-}
-
-@media (min-width: 768px) {
-  body {
-    min-height: 100vh;
-  }
+  min-height: 100vh;
 }
 
 .buttons-app {
