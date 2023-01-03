@@ -10,6 +10,7 @@ import {
 import useSound from "use-sound";
 import gameOverSound from "../assets/audios/game-over.mp3";
 import clickMachineSound from "../assets/audios/machine.mp3";
+import weTiedSound from "../assets/audios/tied.mp3";
 import winnerSound from "../assets/audios/winner.mp3";
 import { getRecordsQueryResponse, GET_RECORDS } from "../db/getRecords";
 import {
@@ -83,6 +84,7 @@ export function GameProvider({ children }: GameProviderProps) {
   const [playSoundGameOver] = useSound(gameOverSound);
   const [playSoundWinner] = useSound(winnerSound);
   const [playSoundClickMachine] = useSound(clickMachineSound);
+  const [playSoundWeTied] = useSound(weTiedSound);
 
   const { data: dataGetRecords, refetch: refetchGetRecords } =
     useQuery<getRecordsQueryResponse>(GET_RECORDS, {
@@ -173,6 +175,8 @@ export function GameProvider({ children }: GameProviderProps) {
   };
 
   const playAutomatically = () => {
+    if (isWeTied || playerWinner) return;
+
     const idTemporary = idGame;
 
     const availablePositions = [] as number[];
@@ -255,14 +259,15 @@ export function GameProvider({ children }: GameProviderProps) {
       [...new Set(value)].filter((value) => value !== 0 && value)
     );
 
-    let isGameOver = true;
+    let isWeTied = true;
 
     possibilitiesFiltered.forEach(
-      (values) => values.length !== 2 && (isGameOver = false)
+      (values) => values.length !== 2 && (isWeTied = false)
     );
 
-    if (isGameOver) {
-      setIsWeTied(isGameOver);
+    if (isWeTied) {
+      playSoundWeTied();
+      setIsWeTied(isWeTied);
       setStartingPlayer((prev) => (prev === 1 ? 2 : 1));
     }
   };
