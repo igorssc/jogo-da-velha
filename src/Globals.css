@@ -22,9 +22,14 @@
 
 body {
   margin: 0;
-  display: flex;
   min-width: 320px;
   justify-content: center;
   place-items: center;
   padding: 20px;
+}
+
+@media (min-width: 768px) {
+  body {
+    display: flex;
+  }
 }
