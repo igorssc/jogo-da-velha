@@ -1,11 +1,11 @@
 {
   "theme_color": "#242424",
   "background_color": "#242424",
-  "display": "fullscreen",
+  "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "name": "Jogo da velha",
-  "short_name": "Jogo da velha",
+  "short_name": "Velha",
   "icons": [
     {
       "src": "/maskable_icon_x192.png",
