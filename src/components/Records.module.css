@@ -1,0 +1,29 @@
+.record {
+  width: 100%;
+  margin: auto;
+  background: #606060;
+  border-collapse: collapse;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.record tr {
+  height: 50px;
+}
+.record thead > tr:first-child {
+  background: #f92f60;
+  height: 50px;
+}
+.record tbody > tr:nth-child(even) {
+  background: #4f4f4f;
+}
+.record th,
+.record td {
+  padding: 0 15px;
+  font-weight: normal;
+  white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .record td {
+    font-size: 0.8rem;
+  }
+}

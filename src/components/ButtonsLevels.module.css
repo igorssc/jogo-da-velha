@@ -1,0 +1,13 @@
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+  .buttons {
+    margin-bottom: 40px;
+    gap: 30px;
+  }
+}

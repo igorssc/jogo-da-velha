@@ -1,12 +1,34 @@
-import { useContext } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { GameContext } from "../contexts/GameContext";
 import styles from "./Backdrop.module.css";
 import { Button } from "./Button";
 import { Fireworks } from "./Fireworks";
 
 export const Backdrop = () => {
-  const { playerWinner, restart, isWeTied, isAutomatic, symbolsPlayers } =
-    useContext(GameContext);
+  const {
+    playerWinner,
+    restart,
+    isWeTied,
+    isAutomatic,
+    symbolsPlayers,
+    points,
+    registerRecord,
+    isRecord,
+  } = useContext(GameContext);
+
+  const [name, setName] = useState("");
+
+  const handleName = (event: ChangeEvent<HTMLInputElement>) => {
+    const CurrentName = event.target.value;
+
+    if (CurrentName.length > 15) return;
+
+    setName(CurrentName);
+  };
+
+  const handleNewRecord = () => {
+    registerRecord(name);
+  };
 
   return (
     <>
@@ -35,6 +57,23 @@ export const Backdrop = () => {
           <div className={styles.game_over}>
             <h1>Você perdeu :&#40;</h1>
             <br />
+            {isRecord && (
+              <div className={styles.record}>
+                <h2>...mas entrou pros recordes!!</h2>
+                <h3>Sua pontuação: {points[1]}</h3>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Digite seu nome"
+                    value={name}
+                    onChange={handleName}
+                  />
+                  <button onClick={handleNewRecord}>
+                    <span>✔️</span>
+                  </button>
+                </div>
+              </div>
+            )}
             <Button onClick={restart} scheme="secondary">
               Jogar novamente
             </Button>

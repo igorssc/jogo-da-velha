@@ -8,13 +8,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.3",
     "clsx": "^1.2.1",
+    "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-particles": "^2.7.1",
     "tsparticles-engine": "^2.7.1",
     "tsparticles-preset-confetti": "^2.7.1",
-    "tsparticles-preset-fireworks": "^2.7.1"
+    "tsparticles-preset-fireworks": "^2.7.1",
+    "use-sound": "^4.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",

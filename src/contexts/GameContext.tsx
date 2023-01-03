@@ -1,3 +1,4 @@
+import { gql, useMutation, useQuery } from "@apollo/client";
 import {
   createContext,
   Dispatch,
@@ -6,6 +7,11 @@ import {
   useEffect,
   useState,
 } from "react";
+import useSound from "use-sound";
+import gameOverSound from "../assets/audios/game-over.mp3";
+import clickMachineSound from "../assets/audios/machine.mp3";
+import winnerSound from "../assets/audios/winner.mp3";
+import { getRecordsQueryResponse, GET_RECORDS } from "../db/getRecords";
 import {
   checkingPossibilityOfCreatingHighStrategy,
   checkingPossibilityOfCreatingMediaStrategy,
@@ -19,6 +25,14 @@ import {
 
 interface GameProviderProps {
   children: ReactNode;
+}
+
+interface publishRecordMutationResponse {
+  publishRecord: { id: string };
+}
+
+interface registerRecordMutationResponse {
+  createRecord: { id: string };
 }
 
 type GameData = {
@@ -37,6 +51,9 @@ type GameData = {
   handleSymbolsPlayers: () => void;
   level: 1 | 2 | 3;
   setLevel: Dispatch<SetStateAction<1 | 2 | 3>>;
+  records: undefined | getRecordsQueryResponse["records"];
+  isRecord: boolean;
+  registerRecord: (name: string) => void;
 };
 
 export const GameContext = createContext({} as GameData);
@@ -48,6 +65,7 @@ export function GameProvider({ children }: GameProviderProps) {
 
   const [level, setLevel] = useState<1 | 2 | 3>(1);
   const [isAutomatic, setIsAutomatic] = useState(true);
+  const [isRecord, setIsRecord] = useState(false);
   const [startingPlayer, setStartingPlayer] = useState(1);
   const [currentPlayer, setCurrentPlayer] = useState(1);
   const [playerWinner, setPlayerWinner] = useState<number | null>(null);
@@ -58,6 +76,92 @@ export function GameProvider({ children }: GameProviderProps) {
     1: "X" | "O";
     2: "X" | "O";
   }>({ 1: "X", 2: "O" });
+  const [records, setRecords] = useState<
+    undefined | getRecordsQueryResponse["records"]
+  >(undefined);
+
+  const [playSoundGameOver] = useSound(gameOverSound);
+  const [playSoundWinner] = useSound(winnerSound);
+  const [playSoundClickMachine] = useSound(clickMachineSound);
+
+  const { data: dataGetRecords, refetch: refetchGetRecords } =
+    useQuery<getRecordsQueryResponse>(GET_RECORDS, {
+      variables: {
+        level,
+      },
+    });
+
+  useEffect(() => {
+    refetchGetRecords();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    refetchGetRecords();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [level]);
+
+  useEffect(() => {
+    setRecords(dataGetRecords?.records);
+  }, [dataGetRecords]);
+
+  const REGISTER_RECORD = gql`
+    mutation RegisterRecord($name: String!, $score: Int!, $level: Int!) {
+      createRecord(data: { name: $name, score: $score, level: $level }) {
+        id
+      }
+    }
+  `;
+
+  const PUBLISH_RECORD = gql`
+    mutation PublishRecord($id: ID!) {
+      publishRecord(where: { id: $id }, to: PUBLISHED) {
+        id
+      }
+    }
+  `;
+
+  const [registerRecordMutateFunction] =
+    useMutation<registerRecordMutationResponse>(REGISTER_RECORD);
+
+  const [publishRecordMutateFunction] =
+    useMutation<publishRecordMutationResponse>(PUBLISH_RECORD);
+
+  const checkRecord = () => {
+    let isRecord = false;
+
+    if ((!records || (records && records.length < 10)) && points[1] > 0) {
+      isRecord = true;
+    }
+
+    if (!isRecord) {
+      records?.forEach((record) => {
+        record.score < points[1] && (isRecord = true);
+      });
+    }
+
+    setIsRecord(isRecord);
+  };
+
+  const registerRecord = async (name: string) => {
+    try {
+      await registerRecordMutateFunction({
+        variables: { name, score: points[1], level },
+      }).then(async ({ data }) => {
+        await publishRecordMutateFunction({
+          variables: {
+            id: (data as registerRecordMutationResponse).createRecord.id,
+          },
+        }).then(() => {
+          refetchGetRecords();
+          restartPoints();
+        });
+      });
+    } catch {
+    } finally {
+      restart();
+    }
+  };
 
   let idGame = 1;
 
@@ -141,11 +245,12 @@ export function GameProvider({ children }: GameProviderProps) {
           newGameData[positionSelected as number] = currentPlayer;
           return newGameData;
         });
+        playSoundClickMachine();
       }
     }, Math.floor(Math.random() * 3000));
   };
 
-  const checkGameOver = () => {
+  const checkWeTied = () => {
     const possibilitiesFiltered = possibilities(gameData).map((value) =>
       [...new Set(value)].filter((value) => value !== 0 && value)
     );
@@ -182,8 +287,22 @@ export function GameProvider({ children }: GameProviderProps) {
         setShowLine(combination[3] as string);
         setStartingPlayer(gameData[combination[0] as number]);
         isWinner = true;
+        if (isWinner) {
+          if (
+            !isAutomatic ||
+            (isAutomatic && gameData[combination[0] as number] === 1)
+          ) {
+            playSoundWinner();
+          }
+        }
+        isWinner &&
+          isAutomatic &&
+          gameData[combination[0] as number] === 2 &&
+          playSoundGameOver();
       }
     });
+
+    isWinner && isAutomatic && checkRecord();
 
     !isWinner && setCurrentPlayer((prev) => (prev === 1 ? 2 : 1));
   };
@@ -202,7 +321,7 @@ export function GameProvider({ children }: GameProviderProps) {
 
   useEffect(() => {
     if (gameData.some((v) => v === 1 || v === 2)) {
-      checkGameOver();
+      checkWeTied();
       checkWinner();
     }
   }, [gameData]);
@@ -249,6 +368,9 @@ export function GameProvider({ children }: GameProviderProps) {
         handleSymbolsPlayers,
         level,
         setLevel,
+        records,
+        registerRecord,
+        isRecord,
       }}
     >
       {children}

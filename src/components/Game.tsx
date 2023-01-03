@@ -1,5 +1,7 @@
 import clsx from "clsx";
 import { useContext } from "react";
+import useSound from "use-sound";
+import clickSound from "../assets/audios/click.mp3";
 import { GameContext } from "../contexts/GameContext";
 import styles from "./Game.module.css";
 
@@ -13,6 +15,8 @@ export const Game = () => {
     isAutomatic,
     symbolsPlayers,
   } = useContext(GameContext);
+
+  const [playSoundClick] = useSound(clickSound);
 
   const handleClick = (indexGame: number) => {
     if (
@@ -28,6 +32,8 @@ export const Game = () => {
       newGameData[indexGame] = currentPlayer;
       return newGameData;
     });
+
+    playSoundClick();
   };
 
   return (
