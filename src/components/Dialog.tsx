@@ -50,7 +50,7 @@ const DialogRestart = ({ open, setOpen }: DialogPropsRestart) => {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            Reiniciar
+            Encerrar
           </Button>
         </DialogActions>
       </DialogMui>
