@@ -1,5 +1,5 @@
 .button {
-  padding: 15px 80px;
+  padding: 15px 0;
   border-radius: 5px;
   cursor: pointer;
   font-size: 18px;
@@ -19,7 +19,7 @@
 
 @media (min-width: 768px) {
   .small {
-    padding: 15px 80px;
+    padding: 15px 0;
   }
 }
 

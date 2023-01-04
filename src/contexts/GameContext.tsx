@@ -55,6 +55,11 @@ type GameData = {
   records: undefined | getRecordsQueryResponse["records"];
   isRecord: boolean;
   registerRecord: (name: string) => void;
+  checkRecord: () => boolean;
+  isChangingLevels: false | 1 | 2 | 3;
+  setIsChangingLevels: Dispatch<SetStateAction<false | 1 | 2 | 3>>;
+  isIntentionToRestart: boolean;
+  setIsIntentionToRestart: Dispatch<SetStateAction<boolean>>;
 };
 
 export const GameContext = createContext({} as GameData);
@@ -80,6 +85,10 @@ export function GameProvider({ children }: GameProviderProps) {
   const [records, setRecords] = useState<
     undefined | getRecordsQueryResponse["records"]
   >(undefined);
+  const [isChangingLevels, setIsChangingLevels] = useState<false | 1 | 2 | 3>(
+    false
+  );
+  const [isIntentionToRestart, setIsIntentionToRestart] = useState(false);
 
   const [playSoundGameOver] = useSound(gameOverSound);
   const [playSoundWinner] = useSound(winnerSound);
@@ -143,6 +152,8 @@ export function GameProvider({ children }: GameProviderProps) {
     }
 
     setIsRecord(isRecord);
+
+    return isRecord;
   };
 
   const registerRecord = async (name: string) => {
@@ -318,6 +329,7 @@ export function GameProvider({ children }: GameProviderProps) {
     setGameData(Array.from({ length: 9 }, () => 0));
     setPlayerWinner(null);
     setIsWeTied(false);
+    setIsIntentionToRestart(false);
   };
 
   const restartPoints = () => {
@@ -376,6 +388,11 @@ export function GameProvider({ children }: GameProviderProps) {
         records,
         registerRecord,
         isRecord,
+        checkRecord,
+        isChangingLevels,
+        setIsChangingLevels,
+        isIntentionToRestart,
+        setIsIntentionToRestart,
       }}
     >
       {children}

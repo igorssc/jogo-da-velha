@@ -10,11 +10,20 @@ import { GameContext } from "./contexts/GameContext";
 import "./Globals.css";
 
 export function App() {
-  const { playerWinner, isWeTied, isAutomatic } = useContext(GameContext);
+  const {
+    playerWinner,
+    isWeTied,
+    isAutomatic,
+    isChangingLevels,
+    isRecord,
+    isIntentionToRestart,
+  } = useContext(GameContext);
 
   return (
     <>
       {(playerWinner || isWeTied) && <Backdrop />}
+      {!playerWinner && isChangingLevels && isRecord && <Backdrop />}
+      {!playerWinner && isIntentionToRestart && isRecord && <Backdrop />}
       <Header />
       <Game />
       <ButtonsFooterGame />

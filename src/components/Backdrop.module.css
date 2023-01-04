@@ -44,12 +44,13 @@
 .winner h2 {
   font-size: 32px;
   color: #fed7aa;
-  margin-bottom: 130px;
+  margin-bottom: 70px;
 }
 
 @media (min-width: 768px) {
   .winner h2 {
     font-size: 48px !important;
+    margin-bottom: 130px;
   }
 }
 
@@ -64,12 +65,21 @@
   font-family: low_budget;
   font-size: 52px;
   color: #eab308;
-  margin-bottom: 130px;
+  margin-bottom: 70px;
+}
+
+@media (max-width: 500px) {
+  .we_tied h1 {
+    font-size: 2rem;
+    line-height: 2rem;
+    word-wrap: break-word;
+  }
 }
 
 @media (min-width: 768px) {
   .we_tied h1 {
     font-size: 96px !important;
+    margin-bottom: 130px;
   }
 }
 
@@ -84,72 +94,83 @@
   font-family: low_budget;
   font-size: 48px;
   color: #eab308;
-  margin-bottom: 130px;
+  margin-bottom: 70px;
+}
+
+.game_over h2 {
+  margin-bottom: 70px;
+  font-size: 1.3rem;
+  line-height: 2.5rem;
+  word-wrap: break-word;
+}
+
+@media (max-width: 500px) {
+  .game_over h1 {
+    font-size: 32px;
+    line-height: 50px;
+  }
+
+  .game_over h2 {
+    font-size: 1rem;
+    line-height: 2rem;
+    word-wrap: break-word;
+  }
+
+  .game_over {
+    width: calc(100% - 30px);
+    margin: auto;
+  }
 }
 
 @media (min-width: 768px) {
   .game_over h1 {
     font-size: 96px !important;
+    margin-bottom: 130px;
   }
 }
 
 .record {
   width: 100%;
   margin-top: -100px;
-  margin-bottom: 90px;
   text-align: center;
-  display: flex;
+  display: block;
   flex-direction: column;
   gap: 10px;
   justify-content: center;
   align-items: center;
 }
-.record h2 {
-  color: #fff;
-}
 .record h3 {
+  color: #fff;
+  font-size: 2rem;
+}
+
+.record h4 {
   color: #eab308;
-}
-.record > div {
-  width: 100%;
-  position: relative;
-  background: #fff;
-  border-radius: 4px;
-  display: flex;
-  align-items: stretch;
-}
-.record > div :focus-within {
-  outline: 3px solid #606060;
-}
-.record button {
-  width: 100px;
-  height: 50px;
-  border-radius: 0 4px 4px 0;
-  border: none;
-  position: relative;
-  background: #606060;
-  cursor: pointer;
-}
-.record button > span {
-  filter: brightness(2.98) contrast(0.23) saturate(3) sepia(0.95);
+  font-size: 1.5rem;
 }
 .record input {
+  width: calc(100% - 10px);
   height: 40px;
   padding: 5px;
+  margin-top: 15px;
+  margin-bottom: 50px;
   border: none;
-  width: calc(100% - 110px);
   font-size: 1rem;
-  background: transparent;
+  border-radius: 4px;
+  background: #fff;
   color: #242424;
 }
-.record input :focus {
-  outline: 0;
-}
-@media (max-width: 768px) {
-  .record button {
-    width: 60px;
+
+@media (max-width: 500px) {
+  .record h3 {
+    font-size: 1.3rem;
+    line-height: 2rem;
+    word-wrap: break-word;
   }
-  .record input {
-    width: calc(100% - 70px);
+
+  .record h4 {
+    font-size: 1rem;
+    line-height: 2rem;
+    word-wrap: break-word;
   }
 }

@@ -1,3 +1,4 @@
+import { useSnackbar } from "notistack";
 import { ChangeEvent, useContext, useState } from "react";
 import { GameContext } from "../contexts/GameContext";
 import styles from "./Backdrop.module.css";
@@ -11,24 +12,10 @@ export const Backdrop = () => {
     isWeTied,
     isAutomatic,
     symbolsPlayers,
-    points,
-    registerRecord,
     isRecord,
+    isIntentionToRestart,
+    isChangingLevels,
   } = useContext(GameContext);
-
-  const [name, setName] = useState("");
-
-  const handleName = (event: ChangeEvent<HTMLInputElement>) => {
-    const CurrentName = event.target.value;
-
-    if (CurrentName.length > 15) return;
-
-    setName(CurrentName);
-  };
-
-  const handleNewRecord = () => {
-    registerRecord(name);
-  };
 
   return (
     <>
@@ -37,7 +24,6 @@ export const Backdrop = () => {
           (isAutomatic && playerWinner === 1)) && (
           <div className={styles.winner}>
             <h1>Vitória</h1>
-            <br />
             <h2>
               {isAutomatic && "Você ganhou!"}
               {!isAutomatic &&
@@ -47,36 +33,37 @@ export const Backdrop = () => {
                 }"
                 `}
             </h2>
-            <Button onClick={restart} scheme="secondary">
-              Jogar novamente
-            </Button>
+            {playerWinner && (
+              <Button onClick={restart} scheme="secondary">
+                Jogar novamente
+              </Button>
+            )}
             <Fireworks />
           </div>
         )}
         {isAutomatic && playerWinner === 2 && (
           <div className={styles.game_over}>
             <h1>Você perdeu :&#40;</h1>
-            <br />
             {isRecord && (
-              <div className={styles.record}>
-                <h2>...mas entrou pros recordes!!</h2>
-                <h3>Sua pontuação: {points[1]}</h3>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Digite seu nome"
-                    value={name}
-                    onChange={handleName}
-                  />
-                  <button onClick={handleNewRecord}>
-                    <span>✔️</span>
-                  </button>
-                </div>
-              </div>
+              <>
+                <br />
+                <br />
+                <Record />
+              </>
             )}
             <Button onClick={restart} scheme="secondary">
               Jogar novamente
             </Button>
+          </div>
+        )}
+        {!playerWinner && isIntentionToRestart && isRecord && (
+          <div className={styles.game_over}>
+            <Record />
+          </div>
+        )}
+        {!playerWinner && isChangingLevels && isRecord && (
+          <div className={styles.game_over}>
+            <Record />
           </div>
         )}
         {isWeTied && (
@@ -87,6 +74,79 @@ export const Backdrop = () => {
             </Button>
           </div>
         )}
+      </div>
+    </>
+  );
+};
+
+const Record = () => {
+  const {
+    points,
+    registerRecord,
+    playerWinner,
+    isChangingLevels,
+    setLevel,
+    setIsChangingLevels,
+    restart,
+    isIntentionToRestart,
+  } = useContext(GameContext);
+  const [isButtonActive, setIsButtonActive] = useState(true);
+  const [name, setName] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleName = (event: ChangeEvent<HTMLInputElement>) => {
+    const CurrentName = event.target.value;
+
+    if (CurrentName.length > 15) return;
+
+    setName(CurrentName);
+  };
+
+  const handleNewRecord = () => {
+    if (!name || name.trim().length < 3) {
+      enqueueSnackbar("Por favor, preencha seu nome", { variant: "warning" });
+      return;
+    }
+
+    setIsButtonActive(false);
+
+    registerRecord(
+      name.trim().charAt(0).toUpperCase() + name.trim().slice(1).toLowerCase()
+    );
+
+    if (isChangingLevels) {
+      setLevel(isChangingLevels);
+      setIsChangingLevels(false);
+      restart();
+    }
+
+    if (isIntentionToRestart) {
+      restart();
+    }
+  };
+
+  return (
+    <>
+      <div className={styles.record}>
+        <h3>
+          {!playerWinner
+            ? "Você entrou pros records"
+            : "...mas entrou pros recordes!!"}
+        </h3>
+        <h4>Sua pontuação: {points[1]}</h4>
+        <input
+          type="text"
+          placeholder="Digite seu nome"
+          value={name}
+          onChange={handleName}
+        />
+        <Button
+          disabled={!isButtonActive}
+          onClick={handleNewRecord}
+          scheme="secondary"
+        >
+          Continuar
+        </Button>
       </div>
     </>
   );

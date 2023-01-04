@@ -1,20 +1,26 @@
 .title {
   font-family: low_budget;
-  font-size: 48px;
+  font-size: 30px;
   text-align: center;
-  margin-top: 30px;
-  line-height: 70px;
+  margin-top: 20px;
+  line-height: 60px;
 }
 
 .title span {
   color: #f92f60;
 }
 
+@media (min-width: 350px) {
+  .title {
+    font-size: 42px;
+  }
+}
+
 @media (min-width: 768px) {
   .title {
-    margin-top: 80px;
+    margin-top: 70px;
     font-size: 92px !important;
-    line-height: 70px;
+    line-height: 50px;
   }
 }
 
