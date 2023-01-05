@@ -4,9 +4,8 @@ Project developed in order to improve software development skills. The project i
 
 - [Technologies](#technologies)
 - [How to run](#how-to-run)
-- [Production](#production)
-  - [Hygraph](#hygraph)
-  - [Environment variables](#environment-variables)
+- [Hygraph](#hygraph)
+- [Environment variables](#environment-variables)
 - [Preview](#preview)
 - [License](#license)
 
@@ -58,12 +57,6 @@ npm run dev -- --port 3000
 ```
 
 You can now access [`localhost:3000`](http://localhost:3000) from your browser.
-
-<a id="production"></a>
-
-## 🎗️ Production
-
-To run the project in production, or even in development, you need to configure the Hygraph data service
 
 <a id="hygraph"></a>
 
