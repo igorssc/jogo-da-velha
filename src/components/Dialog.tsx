@@ -13,8 +13,13 @@ interface DialogPropsRestart {
 }
 
 const DialogRestart = ({ open, setOpen }: DialogPropsRestart) => {
-  const { restart, checkRecord, setIsIntentionToRestart } =
-    useContext(GameContext);
+  const {
+    restart,
+    checkRecord,
+    setIsIntentionToRestart,
+    isAutomatic,
+    restartPoints,
+  } = useContext(GameContext);
 
   const handleClose = () => {
     setOpen(false);
@@ -40,10 +45,16 @@ const DialogRestart = ({ open, setOpen }: DialogPropsRestart) => {
             small
             scheme="secondary"
             onClick={() => {
-              const isRecord = checkRecord();
-              isRecord && setIsIntentionToRestart(true);
-              if (!isRecord) {
+              if (!isAutomatic) {
                 restart();
+                restartPoints();
+              } else {
+                const isRecord = checkRecord();
+                isRecord && setIsIntentionToRestart(true);
+                if (!isRecord) {
+                  restart();
+                  restartPoints();
+                }
               }
 
               handleClose();

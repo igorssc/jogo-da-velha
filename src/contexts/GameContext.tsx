@@ -60,6 +60,7 @@ type GameData = {
   setIsChangingLevels: Dispatch<SetStateAction<false | 1 | 2 | 3>>;
   isIntentionToRestart: boolean;
   setIsIntentionToRestart: Dispatch<SetStateAction<boolean>>;
+  restartPoints: () => void;
 };
 
 export const GameContext = createContext({} as GameData);
@@ -140,6 +141,8 @@ export function GameProvider({ children }: GameProviderProps) {
 
   const checkRecord = () => {
     let isRecord = false;
+    console.log(records);
+    console.log(points);
 
     if ((!records || (records && records.length < 10)) && points[1] > 0) {
       isRecord = true;
@@ -393,6 +396,7 @@ export function GameProvider({ children }: GameProviderProps) {
         setIsChangingLevels,
         isIntentionToRestart,
         setIsIntentionToRestart,
+        restartPoints,
       }}
     >
       {children}
