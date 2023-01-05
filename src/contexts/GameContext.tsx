@@ -141,8 +141,6 @@ export function GameProvider({ children }: GameProviderProps) {
 
   const checkRecord = () => {
     let isRecord = false;
-    console.log(records);
-    console.log(points);
 
     if ((!records || (records && records.length < 10)) && points[1] > 0) {
       isRecord = true;
