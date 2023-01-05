@@ -60,7 +60,7 @@ You can now access [`localhost:3000`](http://localhost:3000) from your browser.
 
 <a id="hygraph"></a>
 
-### 🎲 Hygraph
+## 🎲 Hygraph
 
 To configure the content storage service, you must follow a few steps:
 
@@ -86,7 +86,7 @@ To configure the content storage service, you must follow a few steps:
 
 <a id="environment-variables"></a>
 
-### 🔐 Environment variables
+## 🔐 Environment variables
 
 In this project, `environment variables are used`, to connect with the content storage service [hygraph](https://hygraph.com/).
 
