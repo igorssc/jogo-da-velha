@@ -1,6 +1,7 @@
 .box {
   background: #606060;
   margin-bottom: 30px;
+  border-radius: 5px;
 }
 
 @media (min-width: 768px) {

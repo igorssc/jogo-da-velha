@@ -7,7 +7,7 @@ export const Records = () => {
 
   return (
     <>
-      <div style={{ width: "100%", overflowX: "scroll" }}>
+      <div style={{ width: "100%", overflowX: "scroll", borderRadius: "5px" }}>
         {records && (
           <table className={styles.record}>
             <thead>
