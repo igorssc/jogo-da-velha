@@ -89,7 +89,7 @@ To configure the content storage service, you must follow a few steps:
 
 5. Change the permissions of your permanent access token, and leave it as below:
 
-<img src="https://user-images.githubusercontent.com/26682297/191612116-3ec54d1b-6ce3-40cb-9ac6-bbd02e60d3bf.png" width="600em">
+<img src="https://user-images.githubusercontent.com/26682297/210869680-38c120dc-f058-464a-8a11-c9fd7402c476.png" width="600em">
 
 <a id="environment-variables"></a>
 
