@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Backdrop } from "./components/Backdrop";
 import { ButtonsFooterGame } from "./components/ButtonsFooterGame";
 import { ButtonsLevels } from "./components/ButtonsLevels";
+import { Container } from "./components/Container";
 import { Game } from "./components/Game";
 import { Header } from "./components/Header";
 import { Points } from "./components/Points";
@@ -24,16 +25,18 @@ export function App() {
       {(playerWinner || isWeTied) && <Backdrop />}
       {!playerWinner && isChangingLevels && isRecord && <Backdrop />}
       {!playerWinner && isIntentionToRestart && isRecord && <Backdrop />}
-      <Header />
-      <Game />
-      <ButtonsFooterGame />
-      <Points />
-      {isAutomatic && (
-        <>
-          <ButtonsLevels />
-          <Records />
-        </>
-      )}
+      <Container>
+        <Header />
+        <Game />
+        <ButtonsFooterGame />
+        <Points />
+        {isAutomatic && (
+          <>
+            <ButtonsLevels />
+            <Records />
+          </>
+        )}
+      </Container>
     </>
   );
 }
