@@ -14,6 +14,7 @@ export const Game = () => {
     setGameData,
     isAutomatic,
     symbolsPlayers,
+    isSound,
   } = useContext(GameContext);
 
   const [playSoundClick] = useSound(clickSound);
@@ -33,7 +34,7 @@ export const Game = () => {
       return newGameData;
     });
 
-    playSoundClick();
+    isSound && playSoundClick();
   };
 
   return (

@@ -1,11 +1,18 @@
+import { SpeakerHigh, SpeakerSlash } from "phosphor-react";
 import { useContext } from "react";
 import { GameContext } from "../contexts/GameContext";
 import styles from "./Header.module.css";
 import { Toggle } from "./Toggle";
 
 export const Header = () => {
-  const { currentPlayer, isAutomatic, setIsAutomatic, symbolsPlayers } =
-    useContext(GameContext);
+  const {
+    currentPlayer,
+    isAutomatic,
+    setIsAutomatic,
+    symbolsPlayers,
+    isSound,
+    setIsSound,
+  } = useContext(GameContext);
 
   return (
     <>
@@ -31,6 +38,25 @@ export const Header = () => {
               setIsAutomatic((prev) => !prev);
             }}
           />
+          &nbsp;|&nbsp;
+          {isSound && (
+            <SpeakerHigh
+              color="#ffffff"
+              size={25}
+              weight="bold"
+              style={{ cursor: "pointer" }}
+              onClick={() => setIsSound(false)}
+            />
+          )}
+          {!isSound && (
+            <SpeakerSlash
+              color="#b40404"
+              size={25}
+              weight="bold"
+              style={{ cursor: "pointer" }}
+              onClick={() => setIsSound(true)}
+            />
+          )}
         </div>
       </div>
     </>

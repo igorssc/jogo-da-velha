@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   createContext,
   Dispatch,
@@ -12,7 +12,15 @@ import gameOverSound from "../assets/audios/game-over.mp3";
 import clickMachineSound from "../assets/audios/machine.mp3";
 import weTiedSound from "../assets/audios/tied.mp3";
 import winnerSound from "../assets/audios/winner.mp3";
+import {
+  CREATE_RECORD,
+  registerRecordMutationResponse,
+} from "../db/createRecord";
 import { getRecordsQueryResponse, GET_RECORDS } from "../db/getRecords";
+import {
+  publishRecordMutationResponse,
+  PUBLISH_RECORD,
+} from "../db/publishRecord";
 import {
   checkingPossibilityOfCreatingHighStrategy,
   checkingPossibilityOfCreatingMediaStrategy,
@@ -26,14 +34,6 @@ import {
 
 interface GameProviderProps {
   children: ReactNode;
-}
-
-interface publishRecordMutationResponse {
-  publishRecord: { id: string };
-}
-
-interface registerRecordMutationResponse {
-  createRecord: { id: string };
 }
 
 type GameData = {
@@ -61,6 +61,8 @@ type GameData = {
   isIntentionToRestart: boolean;
   setIsIntentionToRestart: Dispatch<SetStateAction<boolean>>;
   restartPoints: () => void;
+  isSound: boolean;
+  setIsSound: Dispatch<SetStateAction<boolean>>;
 };
 
 export const GameContext = createContext({} as GameData);
@@ -95,6 +97,7 @@ export function GameProvider({ children }: GameProviderProps) {
   const [playSoundWinner] = useSound(winnerSound);
   const [playSoundClickMachine] = useSound(clickMachineSound);
   const [playSoundWeTied] = useSound(weTiedSound);
+  const [isSound, setIsSound] = useState(true);
 
   const { data: dataGetRecords, refetch: refetchGetRecords } =
     useQuery<getRecordsQueryResponse>(GET_RECORDS, {
@@ -117,24 +120,8 @@ export function GameProvider({ children }: GameProviderProps) {
     setRecords(dataGetRecords?.records);
   }, [dataGetRecords]);
 
-  const REGISTER_RECORD = gql`
-    mutation RegisterRecord($name: String!, $score: Int!, $level: Int!) {
-      createRecord(data: { name: $name, score: $score, level: $level }) {
-        id
-      }
-    }
-  `;
-
-  const PUBLISH_RECORD = gql`
-    mutation PublishRecord($id: ID!) {
-      publishRecord(where: { id: $id }, to: PUBLISHED) {
-        id
-      }
-    }
-  `;
-
   const [registerRecordMutateFunction] =
-    useMutation<registerRecordMutationResponse>(REGISTER_RECORD);
+    useMutation<registerRecordMutationResponse>(CREATE_RECORD);
 
   const [publishRecordMutateFunction] =
     useMutation<publishRecordMutationResponse>(PUBLISH_RECORD);
@@ -261,7 +248,7 @@ export function GameProvider({ children }: GameProviderProps) {
           newGameData[positionSelected as number] = currentPlayer;
           return newGameData;
         });
-        playSoundClickMachine();
+        isSound && playSoundClickMachine();
       }
     }, Math.floor(Math.random() * 3000));
   };
@@ -278,7 +265,7 @@ export function GameProvider({ children }: GameProviderProps) {
     );
 
     if (isWeTied) {
-      playSoundWeTied();
+      isSound && playSoundWeTied();
       setIsWeTied(isWeTied);
       setStartingPlayer((prev) => (prev === 1 ? 2 : 1));
     }
@@ -309,12 +296,13 @@ export function GameProvider({ children }: GameProviderProps) {
             !isAutomatic ||
             (isAutomatic && gameData[combination[0] as number] === 1)
           ) {
-            playSoundWinner();
+            isSound && playSoundWinner();
           }
         }
         isWinner &&
           isAutomatic &&
           gameData[combination[0] as number] === 2 &&
+          isSound &&
           playSoundGameOver();
       }
     });
@@ -395,6 +383,8 @@ export function GameProvider({ children }: GameProviderProps) {
         isIntentionToRestart,
         setIsIntentionToRestart,
         restartPoints,
+        isSound,
+        setIsSound,
       }}
     >
       {children}
