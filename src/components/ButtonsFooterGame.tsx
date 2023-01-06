@@ -19,7 +19,7 @@ export const ButtonsFooterGame = () => {
           }}
           scheme="secondary"
         >
-          Encerrar desafio
+          Encerrar desafio / Reiniciar
         </Button>
       </div>
       <Dialog.Restart open={isOpenDialog} setOpen={setIsOpenDialog} />
