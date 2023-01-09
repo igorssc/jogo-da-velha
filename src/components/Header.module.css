@@ -7,7 +7,7 @@
 }
 
 .title span {
-  color: #f92f60;
+  color: var(--primary);
 }
 
 @media (min-width: 350px) {

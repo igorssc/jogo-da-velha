@@ -49,7 +49,8 @@
 .game_area hr {
   position: absolute;
   width: 215px;
-  border: 10px solid #ea580c77;
+  border: 10px solid var(--primary);
+  background: var(--primary);
   border-radius: 100px;
   z-index: 10;
 }
@@ -91,7 +92,8 @@
 @media (min-width: 768px) {
   .game_area hr {
     width: 450px;
-    border: 15px solid #ea580c77;
+    border: 15px solid var(--primary);
+    background: var(--primary);
   }
 
   .line_1 {

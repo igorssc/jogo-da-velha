@@ -7,7 +7,7 @@
   margin: auto;
   width: 100%;
   border: none;
-  background: #606060;
+  background: #3f3f46;
   color: #fff;
 }
 
@@ -28,11 +28,11 @@
 }
 
 .secondary {
-  background: #f92f60;
+  background: var(--primary);
 }
 
 @media (min-width: 768px) {
   .button {
-    padding: 25px 80px;
+    padding: 25px 0;
   }
 }
