@@ -62,10 +62,14 @@ export const Game = () => {
               isAutomatic && currentPlayer === 2 && "disabled"
             )}
           >
-            {value === 1 && symbolsPlayers[1]}
-            {isAutomatic && value === 2 && symbolsPlayers[2] === "O" && "⭕"}
-            {isAutomatic && value === 2 && symbolsPlayers[2] === "X" && "❌"}
-            {!isAutomatic && value === 2 && symbolsPlayers[2]}
+            {value === 1 && <span>{symbolsPlayers[1]}</span>}
+            {isAutomatic && value === 2 && symbolsPlayers[2] === "O" && (
+              <span>⭕</span>
+            )}
+            {isAutomatic && value === 2 && symbolsPlayers[2] === "X" && (
+              <span>❌</span>
+            )}
+            {!isAutomatic && value === 2 && <span>{symbolsPlayers[2]}</span>}
           </span>
         ))}
       </div>

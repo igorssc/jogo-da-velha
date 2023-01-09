@@ -51,9 +51,11 @@ export const Backdrop = () => {
                 <Record />
               </>
             )}
-            <Button onClick={restart} scheme="secondary">
-              Jogar novamente
-            </Button>
+            {!isRecord && (
+              <Button onClick={restart} scheme="secondary">
+                Jogar novamente
+              </Button>
+            )}
           </div>
         )}
         {!playerWinner && isIntentionToRestart && isRecord && (
@@ -89,6 +91,7 @@ const Record = () => {
     setIsChangingLevels,
     restart,
     isIntentionToRestart,
+    restartPoints,
   } = useContext(GameContext);
   const [isButtonActive, setIsButtonActive] = useState(true);
   const [name, setName] = useState("");
@@ -117,12 +120,10 @@ const Record = () => {
     if (isChangingLevels) {
       setLevel(isChangingLevels);
       setIsChangingLevels(false);
-      restart();
     }
 
-    if (isIntentionToRestart) {
-      restart();
-    }
+    restartPoints();
+    restart();
   };
 
   return (

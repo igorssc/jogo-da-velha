@@ -92,7 +92,6 @@
 .game_over h1 {
   font-family: low_budget;
   font-size: 48px;
-  color: var(--primary);
   margin-bottom: 70px;
 }
 

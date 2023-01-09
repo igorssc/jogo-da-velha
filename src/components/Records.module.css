@@ -1,7 +1,7 @@
 .record {
   width: 100%;
   margin: auto;
-  background: #3f3f46;
+  background: #52525b;
   border-collapse: collapse;
   text-align: center;
   margin-bottom: 30px;
@@ -14,7 +14,7 @@
   height: 50px;
 }
 .record tbody > tr:nth-child(even) {
-  background: #52525b;
+  background: #71717a;
 }
 .record th,
 .record td {

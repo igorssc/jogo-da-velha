@@ -13,12 +13,23 @@
   height: 150px;
   background: #eee;
   display: flex;
+  position: relative;
   place-items: center;
   justify-content: center;
   font-size: 32px;
   color: #242424;
   cursor: pointer;
   font-weight: bold;
+}
+
+.game_area span > span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  background: transparent;
 }
 
 @media (max-width: 768px) {
